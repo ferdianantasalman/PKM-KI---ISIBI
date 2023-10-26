@@ -209,6 +209,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.5.0"
+  exif:
+    dependency: "direct main"
+    description:
+      name: exif
+      sha256: a7980fdb3b7ffcd0b035e5b8a5e1eef7cadfe90ea6a4e85ebb62f87b96c7a172
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.3.0"
   fake_async:
     dependency: transitive
     description:
@@ -697,7 +705,7 @@ packages:
     source: hosted
     version: "2.0.1"
   path:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path
       sha256: "8829d8a55c13fc0e37127c29fedf290c102f4e40ae94ada574091fe0ff96c917"
@@ -713,7 +721,7 @@ packages:
     source: hosted
     version: "1.0.1"
   path_provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path_provider
       sha256: a1aa8aaa2542a6bc57e381f132af822420216c80d4781f7aa085ca3229208aaa
@@ -869,6 +877,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
+  sprintf:
+    dependency: transitive
+    description:
+      name: sprintf
+      sha256: "1fc9ffe69d4df602376b52949af107d8f5703b77cda567c4d7d86a0693120f23"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.0.0"
   stack_trace:
     dependency: transitive
     description:
@@ -917,6 +933,38 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.1"
+  tflite_flutter:
+    dependency: "direct main"
+    description:
+      name: tflite_flutter
+      sha256: "38c6fa5c5197cadc595e596f7f307a03eaf68917bc14edb5bc8ba8585f6c230a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.10.3"
+  tflite_flutter_helper_plus:
+    dependency: "direct main"
+    description:
+      name: tflite_flutter_helper_plus
+      sha256: df46a79487efacf2bf9fe608fa935aaa3dce4be1af97442681975c3414eb6574
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
+  tflite_flutter_plus:
+    dependency: transitive
+    description:
+      name: tflite_flutter_plus
+      sha256: "72c7363df4be932541b82f8bc7e544df343f6dea1f6e614a3efa2a7dd73dff2e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
+  tuple:
+    dependency: transitive
+    description:
+      name: tuple
+      sha256: a97ce2013f240b2f3807bcbaf218765b6f301c3eff91092bcfa23a039e7dd151
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2"
   typed_data:
     dependency: transitive
     description:

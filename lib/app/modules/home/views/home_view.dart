@@ -79,7 +79,7 @@ class HomeView extends GetView<HomeController> {
                           height: 65,
                           child: ElevatedButton(
                             onPressed: () {
-                              Get.toNamed(Routes.VIDEO);
+                              Get.toNamed(Routes.LIST_VIDEO, arguments: "kata");
                             },
                             child: Image.asset("assets/icons/salam.png"),
                             style: ElevatedButton.styleFrom(
@@ -103,7 +103,7 @@ class HomeView extends GetView<HomeController> {
                           height: 65,
                           child: ElevatedButton(
                             onPressed: () {
-                              Get.toNamed(Routes.VIDEO, arguments: "kata");
+                              Get.toNamed(Routes.LIST_VIDEO, arguments: "kata");
                             },
                             child: Image.asset("assets/icons/sapaan.png"),
                             style: ElevatedButton.styleFrom(
@@ -128,7 +128,8 @@ class HomeView extends GetView<HomeController> {
                           height: 65,
                           child: ElevatedButton(
                             onPressed: () {
-                              Get.toNamed(Routes.VIDEO, arguments: "angka");
+                              Get.toNamed(Routes.LIST_VIDEO,
+                                  arguments: "angka");
                             },
                             child: Image.asset("assets/icons/angka.png"),
                             style: ElevatedButton.styleFrom(

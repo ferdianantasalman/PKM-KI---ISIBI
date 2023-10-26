@@ -8,6 +8,8 @@ import '../modules/introduction/bindings/introduction_binding.dart';
 import '../modules/introduction/views/introduction_view.dart';
 import '../modules/learn/bindings/learn_binding.dart';
 import '../modules/learn/views/learn_view.dart';
+import '../modules/list_video/bindings/list_video_binding.dart';
+import '../modules/list_video/views/list_video_view.dart';
 import '../modules/news/bindings/news_binding.dart';
 import '../modules/news/views/news_view.dart';
 import '../modules/splash_screen/bindings/splash_screen_binding.dart';
@@ -16,6 +18,7 @@ import '../modules/translator/bindings/translator_binding.dart';
 import '../modules/translator/views/translator_view.dart';
 import '../modules/video/bindings/video_binding.dart';
 import '../modules/video/views/video_view.dart';
+import '../utils/translator.dart';
 
 part 'app_routes.dart';
 
@@ -42,7 +45,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.TRANSLATOR,
-      page: () => TranslatorView(),
+      page: () => Translator(),
       binding: TranslatorBinding(),
     ),
     GetPage(
@@ -64,6 +67,11 @@ class AppPages {
       name: _Paths.LEARN,
       page: () => LearnView(),
       binding: LearnBinding(),
+    ),
+    GetPage(
+      name: _Paths.LIST_VIDEO,
+      page: () => ListVideoView(),
+      binding: ListVideoBinding(),
     ),
   ];
 }

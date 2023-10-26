@@ -3,7 +3,7 @@ version: 1.0.0+1
 publish_to: none
 description: A new Flutter project.
 environment:
-  sdk: '>=3.0.5 <4.0.0'
+  sdk: ">=3.0.5 <4.0.0"
 
 dependencies:
   appinio_video_player: ^1.2.2
@@ -13,6 +13,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   curved_navigation_bar: ^1.0.3
   easy_search_bar: ^2.5.0
+  exif: ^3.3.0
   flutter:
     sdk: flutter
   flutter_svg: ^2.0.7
@@ -25,8 +26,12 @@ dependencies:
   image: ^3.2.0
   introduction_screen: ^3.1.12
   lint: ^2.1.2
+  path: ^1.8.3
+  path_provider: ^2.1.1
   permission_handler: ^11.0.0
   smooth_page_indicator: ^1.1.0
+  tflite_flutter: ^0.10.3
+  tflite_flutter_helper_plus: ^0.0.2
   video_player: ^2.7.2
   webview_flutter: ^4.4.1
 

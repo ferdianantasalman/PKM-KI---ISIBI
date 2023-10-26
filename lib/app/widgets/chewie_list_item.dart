@@ -22,12 +22,17 @@ class ChewieListItem extends StatefulWidget {
 
 class _ChewieListItemState extends State<ChewieListItem> {
   ChewieController? _chewieController;
+  String? _titleVideo;
 
   @override
   void initState() {
+    // print(widget.kamus_title);
+    // _titleVideo = widget.kamus_title;
     _chewieController = ChewieController(
         videoPlayerController: widget.videoPlayerController,
+        // aspectRatio: widget.videoPlayerController.value.aspectRatio,
         aspectRatio: 16 / 9,
+        // autoPlay: true,
         autoInitialize: true,
         looping: widget.looping,
         errorBuilder: (context, errorMessage) {
@@ -50,17 +55,36 @@ class _ChewieListItemState extends State<ChewieListItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(7),
-      child: Column(
-        children: [
-          Text("asdas"),
-          SizedBox(
-            height: 10,
+    return Stack(
+      fit: StackFit.expand,
+      // overflow: TextOverflow.visible,
+      children: [
+        Positioned(
+          top: 50,
+          right: 20,
+          child: Text(
+            widget.kamus_title,
+            style: bold.copyWith(fontSize: 20),
           ),
-          Chewie(controller: _chewieController!)
-        ],
-      ),
+        ),
+        Padding(
+            padding: EdgeInsets.all(1),
+            child: Chewie(controller: _chewieController!))
+      ],
     );
+    // SingleChildScrollView(
+    //   child: Column(
+    //     children: [
+    //       Chewie(controller: _chewieController!),
+    // Text(
+    //   widget.kamus_title,
+    //   style: bold.copyWith(fontSize: 20),
+    // ),
+    //       SizedBox(
+    //         height: 10,
+    //       ),
+    //     ],
+    //   ),
+    // );
   }
 }

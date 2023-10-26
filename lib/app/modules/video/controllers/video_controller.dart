@@ -16,29 +16,25 @@ class VideoController extends GetxController {
   var dataVideoKata = [].obs;
   var urlVideo = [].obs;
 
-  // final List<Map<String, dynamic>> allVideos = [
-  //   {"url": "https://pmpk.kemdikbud.go.id/sibi/SIBI/katadasar/Aku.webm"},
-  //   {"url": "https://pmpk.kemdikbud.go.id/sibi/SIBI/katadasar/Akur.webm"},
-  //   {"url": "https://pmpk.kemdikbud.go.id/sibi/SIBI/katadasar/Akuarium.webm"},
-  // ];
-
   final count = 0.obs;
   @override
   void onInit() {
     category = Get.arguments;
-    if (category == "abjad") {
-      fetchVideoAbjad();
-    } else if (category == "angka") {
-      fetchVideoAngka();
-    } else if (category == "kata") {
-      fetchVideoKata();
-    }
+
+    initializedPlayer();
+
+    // if (category == "abjad") {
+    //   fetchVideoAbjad();
+    // } else if (category == "angka") {
+    //   fetchVideoAngka();
+    // } else if (category == "kata") {
+    //   fetchVideoKata();
+    // }
 
     // print(category);
     super.onInit();
     // fetchVideoKata();
     // checkhData();
-    // initializedPlayer();
     // textEditingController = TextEditingController();
   }
 
@@ -57,66 +53,67 @@ class VideoController extends GetxController {
 
   void increment() => count.value++;
 
-  Future fetchVideoKata() async {
-    Uri url = Uri.parse("https://api.isibi.web.id/kata");
+  // Future fetchVideoKata() async {
+  //   Uri url = Uri.parse("https://api.isibi.web.id/kata");
 
-    final response = await http.get(url);
+  //   final response = await http.get(url);
 
-    if (response.statusCode == 200) {
-      final ready = json.decode(response.body)['data'];
+  //   if (response.statusCode == 200) {
+  //     final ready = json.decode(response.body)['data'];
 
-      // print(ready);
-      data.addAll(ready);
-      // urlVideo.add(ready['kamus_url']);
-      print(data);
-      // print(ready['kamus_url']);
-    } else {
-      throw Exception('Failed to load news');
-    }
+  //     // print(ready);
+  //     data.addAll(ready);
+  //     // urlVideo.add(ready['kamus_url']);
+  //     print(data);
 
-    // news.assignAll(data.map((item) => DetailNews.fromJson(item)).toList());
-  }
+  //     // print(ready['kamus_url']);
+  //   } else {
+  //     throw Exception('Failed to load news');
+  //   }
 
-  Future fetchVideoAngka() async {
-    Uri url = Uri.parse("https://api.isibi.web.id/angka");
+  //   // news.assignAll(data.map((item) => DetailNews.fromJson(item)).toList());
+  // }
 
-    final response = await http.get(url);
+  // Future fetchVideoAngka() async {
+  //   Uri url = Uri.parse("https://api.isibi.web.id/angka");
 
-    if (response.statusCode == 200) {
-      final ready = json.decode(response.body)['data'];
+  //   final response = await http.get(url);
 
-      // print(ready);
-      data.addAll(ready);
-      print(data);
-    } else {
-      throw Exception('Failed to load news');
-    }
+  //   if (response.statusCode == 200) {
+  //     final ready = json.decode(response.body)['data'];
 
-    // news.assignAll(data.map((item) => DetailNews.fromJson(item)).toList());
-  }
+  //     // print(ready);
+  //     data.addAll(ready);
+  //     print(data);
+  //   } else {
+  //     throw Exception('Failed to load news');
+  //   }
 
-  Future fetchVideoAbjad() async {
-    Uri url = Uri.parse("https://api.isibi.web.id/abjad");
+  //   // news.assignAll(data.map((item) => DetailNews.fromJson(item)).toList());
+  // }
 
-    final response = await http.get(url);
+  // Future fetchVideoAbjad() async {
+  //   Uri url = Uri.parse("https://api.isibi.web.id/abjad");
 
-    if (response.statusCode == 200) {
-      final ready = json.decode(response.body)['data'];
+  //   final response = await http.get(url);
 
-      // print(ready);
-      data.addAll(ready);
+  //   if (response.statusCode == 200) {
+  //     final ready = json.decode(response.body)['data'];
 
-      print(data);
-    } else {
-      throw Exception('Failed to load news');
-    }
+  //     // print(ready);
+  //     data.addAll(ready);
 
-    // news.assignAll(data.map((item) => DetailNews.fromJson(item)).toList());
-  }
+  //     print(data);
+  //   } else {
+  //     throw Exception('Failed to load news');
+  //   }
+
+  //   // news.assignAll(data.map((item) => DetailNews.fromJson(item)).toList());
+  // }
 
   Future<void> initializedPlayer() async {
-    videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(
-        "https://pmpk.kemdikbud.go.id/sibi/SIBI/katadasar/${data.value}.webm"));
+    videoPlayerController =
+        VideoPlayerController.networkUrl(Uri.parse(category["kamus_url"]));
 
     await Future.wait([videoPlayerController.initialize()]);
 

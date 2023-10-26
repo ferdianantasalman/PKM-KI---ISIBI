@@ -49,21 +49,30 @@ class NewsView extends GetView<NewsController> {
               return ListTile(
                 contentPadding: EdgeInsets.fromLTRB(5, 5, 5, 0),
                 focusColor: Colors.amber,
-                leading: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      border: Border.all(
-                          width: 1,
-                          color: Colors.black,
-                          style: BorderStyle.solid)),
-                  margin: EdgeInsets.fromLTRB(2, 5, 2, 0),
-                  height: 100,
-                  width: 100,
-                  child: Image.network(
-                    newsItem['post_thumbnail'],
-                    fit: BoxFit.cover,
+                leading:
+                    // Container(
+                    //   decoration: BoxDecoration(
+                    //       // shape: BoxShape.circle,
+                    //       borderRadius: BorderRadius.all(Radius.circular(10)),
+                    //       border: Border.all(
+                    //           width: 1,
+                    //           color: Colors.black,
+                    //           style: BorderStyle.solid)),
+                    //   margin: EdgeInsets.fromLTRB(2, 5, 2, 0),
+                    //   height: 100,
+                    //   width: 100,
+                    //   child:
+                    ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: SizedBox.fromSize(
+                    size: Size.fromRadius(50),
+                    child: Image.network(
+                      newsItem['post_thumbnail'],
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
+                // ),
                 title: Text(
                   newsItem['post_title'],
                   style: semibold.copyWith(fontSize: 15),
