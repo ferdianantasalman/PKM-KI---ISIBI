@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:isibi/app/shared/page_index_controller.dart';
 import 'package:isibi/app/shared/theme.dart';
 
 import '../controllers/detail_controller.dart';
@@ -10,10 +8,12 @@ import '../controllers/detail_controller.dart';
 class DetailView extends GetView<DetailController> {
   final detailC = Get.find<DetailController>();
 
+  DetailView({super.key});
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
+    // double width = MediaQuery.of(context).size.width;
     return Scaffold(
       // backgroundColor: Colors.amber,
       body: SingleChildScrollView(

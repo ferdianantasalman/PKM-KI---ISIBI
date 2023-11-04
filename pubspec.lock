@@ -201,14 +201,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
-  easy_search_bar:
-    dependency: "direct main"
-    description:
-      name: easy_search_bar
-      sha256: b20343be8ab94ed9e1550cf8cbd5323c344bd9b58b9319fb6e62d75395c0bcaa
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.5.0"
   exif:
     dependency: "direct main"
     description:
@@ -355,14 +347,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_tflite:
-    dependency: "direct main"
-    description:
-      name: flutter_tflite
-      sha256: "0d6b622af0fe90d92bd4d9bd28b98c3b213217f36ccb7b444d7104a742b03363"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -392,126 +376,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.1.0"
-  google_ml_kit:
-    dependency: "direct main"
-    description:
-      name: google_ml_kit
-      sha256: "9d98ed5ff96c1295d08f96c807a70d53b56a43a7a18ae86d4ea4d09cf7310fc9"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.16.2"
-  google_mlkit_barcode_scanning:
-    dependency: transitive
-    description:
-      name: google_mlkit_barcode_scanning
-      sha256: "033401bc992315fe3d6ed9265b97bf1e620fa12ddaffda830107d6852abcde77"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.9.0"
-  google_mlkit_commons:
-    dependency: transitive
-    description:
-      name: google_mlkit_commons
-      sha256: "42173a8ba89f386486cc5b8249e84da4a4b861daa70498373627d985eb418689"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.0"
-  google_mlkit_digital_ink_recognition:
-    dependency: transitive
-    description:
-      name: google_mlkit_digital_ink_recognition
-      sha256: f48a90cd2bb8dc6a0432a1ba89a1a488d4e7ba3132fe4dfd75a9eab0e0a1b90a
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.9.0"
-  google_mlkit_entity_extraction:
-    dependency: transitive
-    description:
-      name: google_mlkit_entity_extraction
-      sha256: e4801253f9913a84793f338fb45923825fc2799f8608a1f0d0f5ca43b5062fbc
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.10.0"
-  google_mlkit_face_detection:
-    dependency: transitive
-    description:
-      name: google_mlkit_face_detection
-      sha256: "567339c67530b22b22917622df9bba40547a4719fa108819901f95ffb7cd3399"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.8.0"
-  google_mlkit_face_mesh_detection:
-    dependency: transitive
-    description:
-      name: google_mlkit_face_mesh_detection
-      sha256: "3f64635fe096fef3167da6f69a30b1744ddfb4590acdaa2b7757c6f30455b0f5"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.1"
-  google_mlkit_image_labeling:
-    dependency: transitive
-    description:
-      name: google_mlkit_image_labeling
-      sha256: "38c7225e22ec558bfd78015ef9e9ae4812cee8715f03a9c82b87d3e0b530d00c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.9.0"
-  google_mlkit_language_id:
-    dependency: transitive
-    description:
-      name: google_mlkit_language_id
-      sha256: cb4241297552f22be638be620add294b6a6c9043eefc1f4c18597ee66ce31a98
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.8.0"
-  google_mlkit_object_detection:
-    dependency: transitive
-    description:
-      name: google_mlkit_object_detection
-      sha256: "52b11c335cbf45da561127de586e1ab32ba5526eb04d7a3a683c787279a47153"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.10.0"
-  google_mlkit_pose_detection:
-    dependency: transitive
-    description:
-      name: google_mlkit_pose_detection
-      sha256: "08759fc095751cf84f6758f276212881388e04210c64087341e260f9f233316e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.9.0"
-  google_mlkit_selfie_segmentation:
-    dependency: transitive
-    description:
-      name: google_mlkit_selfie_segmentation
-      sha256: "5b2931f86e9476daaf5710f9e0d281ec06f7d0ee664a3688b791bfcfb7c4afd5"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.0"
-  google_mlkit_smart_reply:
-    dependency: transitive
-    description:
-      name: google_mlkit_smart_reply
-      sha256: "97165ea8667aa94de20d782862ecd791daf0e884c48b8cb1cedd9ebafda5d52c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.8.0"
-  google_mlkit_text_recognition:
-    dependency: transitive
-    description:
-      name: google_mlkit_text_recognition
-      sha256: "588021c99536fdfb173eeecc4ee1b60ea4e0bd4be9787f52363c85346ae20364"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.10.0"
-  google_mlkit_translation:
-    dependency: transitive
-    description:
-      name: google_mlkit_translation
-      sha256: "175a0cb801b5fa01140f62344bbda6a8dcbb7977ae057f1dab1b74eddc60d71c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.8.0"
   html:
     dependency: transitive
     description:
@@ -545,29 +409,29 @@ packages:
     source: hosted
     version: "3.3.0"
   image_picker:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: image_picker
-      sha256: b6951e25b795d053a6ba03af5f710069c99349de9341af95155d52665cb4607c
+      sha256: "7d7f2768df2a8b0a3cefa5ef4f84636121987d403130e70b17ef7e2cf650ba84"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.9"
+    version: "1.0.4"
   image_picker_android:
     dependency: transitive
     description:
       name: image_picker_android
-      sha256: "0c7b83bbe2980c8a8e36e974f055e11e51675784e13a4762889feed0f3937ff2"
+      sha256: d6a6e78821086b0b737009b09363018309bbc6de3fd88cc5c26bc2bb44a4957f
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.8+1"
+    version: "0.8.8+2"
   image_picker_for_web:
     dependency: transitive
     description:
       name: image_picker_for_web
-      sha256: "869fe8a64771b7afbc99fc433a5f7be2fea4d1cb3d7c11a48b6b579eb9c797f0"
+      sha256: "50bc9ae6a77eea3a8b11af5eb6c661eeb858fdd2f734c2a4fd17086922347ef7"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0"
+    version: "3.0.1"
   image_picker_ios:
     dependency: transitive
     description:
@@ -941,30 +805,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.10.3"
-  tflite_flutter_helper_plus:
-    dependency: "direct main"
-    description:
-      name: tflite_flutter_helper_plus
-      sha256: df46a79487efacf2bf9fe608fa935aaa3dce4be1af97442681975c3414eb6574
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.2"
-  tflite_flutter_plus:
-    dependency: transitive
-    description:
-      name: tflite_flutter_plus
-      sha256: "72c7363df4be932541b82f8bc7e544df343f6dea1f6e614a3efa2a7dd73dff2e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.1"
-  tuple:
-    dependency: transitive
-    description:
-      name: tuple
-      sha256: a97ce2013f240b2f3807bcbaf218765b6f301c3eff91092bcfa23a039e7dd151
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.2"
   typed_data:
     dependency: transitive
     description:
@@ -1061,38 +901,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
-  webview_flutter:
-    dependency: "direct main"
-    description:
-      name: webview_flutter
-      sha256: c1ab9b81090705c6069197d9fdc1625e587b52b8d70cdde2339d177ad0dbb98e
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.4.1"
-  webview_flutter_android:
-    dependency: transitive
-    description:
-      name: webview_flutter_android
-      sha256: b0cd33dd7d3dd8e5f664e11a19e17ba12c352647269921a3b568406b001f1dff
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.12.0"
-  webview_flutter_platform_interface:
-    dependency: transitive
-    description:
-      name: webview_flutter_platform_interface
-      sha256: "6d9213c65f1060116757a7c473247c60f3f7f332cac33dc417c9e362a9a13e4f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.6.0"
-  webview_flutter_wkwebview:
-    dependency: transitive
-    description:
-      name: webview_flutter_wkwebview
-      sha256: "30b9af6bdd457b44c08748b9190d23208b5165357cc2eb57914fee1366c42974"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.9.1"
   win32:
     dependency: transitive
     description:

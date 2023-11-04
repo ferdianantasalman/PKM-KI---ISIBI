@@ -1,357 +1,198 @@
-// import 'dart:async';
-// import 'dart:io';
-// import 'dart:isolate';
+// // ignore_for_file: avoid_print, depend_on_referenced_packages, unnecessary_null_comparison
 
-// import 'package:camera/camera.dart';
-// import 'package:flutter/foundation.dart';
-// import 'package:flutter/services.dart';
+// import 'dart:math';
+// import 'dart:ui';
+
+// import 'package:flutter/material.dart';
 // import 'package:image/image.dart' as image_lib;
 // import 'package:isibi/app/tflite/recognition.dart';
 // import 'package:tflite_flutter/tflite_flutter.dart';
+// import 'package:tflite_flutter_helper_plus/tflite_flutter_helper_plus.dart';
 
-// import 'image_utils.dart';
+// import 'stats.dart';
 
-// ///////////////////////////////////////////////////////////////////////////////
-// // **WARNING:** This is not production code and is only intended to be used for
-// // demonstration purposes.
-// //
-// // The following Detector example works by spawning a background isolate and
-// // communicating with it over Dart's SendPort API. It is presented below as a
-// // demonstration of the feature "Background Isolate Channels" and shows using
-// // plugins from a background isolate. The [Detector] operates on the root
-// // isolate and the [_DetectorServer] operates on a background isolate.
-// //
-// // Here is an example of the protocol they use to communicate:
-// //
-// //  _________________                         ________________________
-// //  [:Detector]                               [:_DetectorServer]
-// //  -----------------                         ------------------------
-// //         |                                              |
-// //         |<---------------(init)------------------------|
-// //         |----------------(init)----------------------->|
-// //         |<---------------(ready)---------------------->|
-// //         |                                              |
-// //         |----------------(detect)--------------------->|
-// //         |<---------------(busy)------------------------|
-// //         |<---------------(result)----------------------|
-// //         |                 . . .                        |
-// //         |----------------(detect)--------------------->|
-// //         |<---------------(busy)------------------------|
-// //         |<---------------(result)----------------------|
-// //
-// ///////////////////////////////////////////////////////////////////////////////
+// /// Classifier
+// class Classifier {
+//   /// Instance of Interpreter
+//   late Interpreter _interpreter;
 
-// /// All the command codes that can be sent and received between [Detector] and
-// /// [_DetectorServer].
-// enum _Codes {
-//   init,
-//   busy,
-//   ready,
-//   detect,
-//   result,
-// }
+//   /// Labels file loaded as list
+//   late List<String> _labels;
 
-// /// A command sent between [Detector] and [_DetectorServer].
-// class _Command {
-//   const _Command(this.code, {this.args});
+//   static const String modelFileName = "assets/models/detect.tflite";
+//   static const String labelFileName = "assets/models/labelmap.txt";
 
-//   final _Codes code;
-//   final List<Object>? args;
-// }
-
-// /// A Simple Detector that handles object detection via Service
-// ///
-// /// All the heavy operations like pre-processing, detection, ets,
-// /// are executed in a background isolate.
-// /// This class just sends and receives messages to the isolate.
-// class Detector {
-//   static const String _modelPath = 'assets/models/ssd_mobilenet.tflite';
-//   static const String _labelPath = 'assets/models/labelmap.txt';
-
-//   Detector._(this._isolate, this._interpreter, this._labels);
-
-//   final Isolate _isolate;
-//   late final Interpreter _interpreter;
-//   late final List<String> _labels;
-
-//   // To be used by detector (from UI) to send message to our Service ReceivePort
-//   late final SendPort _sendPort;
-
-//   bool _isReady = false;
-
-//   // // Similarly, StreamControllers are stored in a queue so they can be handled
-//   // // asynchronously and serially.
-//   final StreamController<Map<String, dynamic>> resultsStream =
-//       StreamController<Map<String, dynamic>>();
-
-//   /// Open the database at [path] and launch the server on a background isolate..
-//   static Future<Detector> start() async {
-//     final ReceivePort receivePort = ReceivePort();
-//     // sendPort - To be used by service Isolate to send message to our ReceiverPort
-//     final Isolate isolate =
-//         await Isolate.spawn(_DetectorServer._run, receivePort.sendPort);
-
-//     final Detector result = Detector._(
-//       isolate,
-//       await _loadModel(),
-//       await _loadLabels(),
-//     );
-//     receivePort.listen((message) {
-//       result._handleCommand(message as _Command);
-//     });
-//     return result;
-//   }
-
-//   static Future<Interpreter> _loadModel() async {
-//     final interpreterOptions = InterpreterOptions();
-
-//     // Use XNNPACK Delegate
-//     if (Platform.isAndroid) {
-//       interpreterOptions.addDelegate(XNNPackDelegate());
-//     }
-
-//     return Interpreter.fromAsset(
-//       _modelPath,
-//       options: interpreterOptions..threads = 4,
-//     );
-//   }
-
-//   static Future<List<String>> _loadLabels() async {
-//     return (await rootBundle.loadString(_labelPath)).split('\n');
-//   }
-
-//   /// Starts CameraImage processing
-//   void processFrame(CameraImage cameraImage) {
-//     if (_isReady) {
-//       _sendPort.send(_Command(_Codes.detect, args: [cameraImage]));
-//     }
-//   }
-
-//   /// Handler invoked when a message is received from the port communicating
-//   /// with the database server.
-//   void _handleCommand(_Command command) {
-//     switch (command.code) {
-//       case _Codes.init:
-//         _sendPort = command.args?[0] as SendPort;
-//         // ----------------------------------------------------------------------
-//         // Before using platform channels and plugins from background isolates we
-//         // need to register it with its root isolate. This is achieved by
-//         // acquiring a [RootIsolateToken] which the background isolate uses to
-//         // invoke [BackgroundIsolateBinaryMessenger.ensureInitialized].
-//         // ----------------------------------------------------------------------
-//         RootIsolateToken rootIsolateToken = RootIsolateToken.instance!;
-//         _sendPort.send(_Command(_Codes.init, args: [
-//           rootIsolateToken,
-//           _interpreter.address,
-//           _labels,
-//         ]));
-//       case _Codes.ready:
-//         _isReady = true;
-//       case _Codes.busy:
-//         _isReady = false;
-//       case _Codes.result:
-//         _isReady = true;
-//         resultsStream.add(command.args?[0] as Map<String, dynamic>);
-//       default:
-//         debugPrint('Detector unrecognized command: ${command.code}');
-//     }
-//   }
-
-//   /// Kills the background isolate and its detector server.
-//   void stop() {
-//     _isolate.kill();
-//   }
-// }
-
-// /// The portion of the [Detector] that runs on the background isolate.
-// ///
-// /// This is where we use the new feature Background Isolate Channels, which
-// /// allows us to use plugins from background isolates.
-// class _DetectorServer {
 //   /// Input size of image (height = width = 300)
-//   static const int mlModelInputSize = 300;
+//   static const int inputSize = 300;
 
-//   /// Result confidence threshold
-//   static const double confidence = 0.5;
-//   Interpreter? _interpreter;
-//   List<String>? _labels;
+//   /// Result score threshold
+//   static const double threshold = 0.5;
 
-//   _DetectorServer(this._sendPort);
+//   /// [ImageProcessor] used to pre-process the image
+//   ImageProcessor? imageProcessor;
 
-//   final SendPort _sendPort;
+//   /// Padding the image to transform into square
+//   late int padSize;
 
-//   // ----------------------------------------------------------------------
-//   // Here the plugin is used from the background isolate.
-//   // ----------------------------------------------------------------------
+//   /// Shapes of output tensors
+//   late List<List<int>> _outputShapes;
 
-//   /// The main entrypoint for the background isolate sent to [Isolate.spawn].
-//   static void _run(SendPort sendPort) {
-//     ReceivePort receivePort = ReceivePort();
-//     final _DetectorServer server = _DetectorServer(sendPort);
-//     receivePort.listen((message) async {
-//       final _Command command = message as _Command;
-//       await server._handleCommand(command);
-//     });
-//     // receivePort.sendPort - used by UI isolate to send commands to the service receiverPort
-//     sendPort.send(_Command(_Codes.init, args: [receivePort.sendPort]));
+//   /// Types of output tensors
+//   late List<TfLiteType> _outputTypes;
+
+//   /// Number of results to show
+//   static const int numResult = 10;
+
+//   Classifier({
+//     Interpreter? interpreter,
+//     List<String>? labels,
+//   }) {
+//     loadModel(interpreter: interpreter);
+//     loadLabels(labels: labels);
 //   }
 
-//   /// Handle the [command] received from the [ReceivePort].
-//   Future<void> _handleCommand(_Command command) async {
-//     switch (command.code) {
-//       case _Codes.init:
-//         // ----------------------------------------------------------------------
-//         // The [RootIsolateToken] is required for
-//         // [BackgroundIsolateBinaryMessenger.ensureInitialized] and must be
-//         // obtained on the root isolate and passed into the background isolate via
-//         // a [SendPort].
-//         // ----------------------------------------------------------------------
-//         RootIsolateToken rootIsolateToken =
-//             command.args?[0] as RootIsolateToken;
-//         // ----------------------------------------------------------------------
-//         // [BackgroundIsolateBinaryMessenger.ensureInitialized] for each
-//         // background isolate that will use plugins. This sets up the
-//         // [BinaryMessenger] that the Platform Channels will communicate with on
-//         // the background isolate.
-//         // ----------------------------------------------------------------------
-//         BackgroundIsolateBinaryMessenger.ensureInitialized(rootIsolateToken);
-//         _interpreter = Interpreter.fromAddress(command.args?[1] as int);
-//         _labels = command.args?[2] as List<String>;
-//         _sendPort.send(const _Command(_Codes.ready));
-//       case _Codes.detect:
-//         _sendPort.send(const _Command(_Codes.busy));
-//         _convertCameraImage(command.args?[0] as CameraImage);
-//       default:
-//         debugPrint('_DetectorService unrecognized command ${command.code}');
+//   /// Loads interpreter from asset
+//   void loadModel({Interpreter? interpreter}) async {
+//     try {
+//       _interpreter = interpreter ??
+//           await Interpreter.fromAsset(
+//             modelFileName,
+//             options: InterpreterOptions()..threads = 4,
+//           );
+
+//       var outputTensors = _interpreter.getOutputTensors();
+//       _outputShapes = [];
+//       _outputTypes = [];
+//       for (var tensor in outputTensors) {
+//         _outputShapes.add(tensor.shape);
+//         _outputTypes.add(tensor.type as TfLiteType);
+//       }
+//     } catch (e) {
+//       print("Error while creating interpreter: $e");
 //     }
 //   }
 
-//   void _convertCameraImage(CameraImage cameraImage) {
-//     var preConversionTime = DateTime.now().millisecondsSinceEpoch;
-
-//     convertCameraImageToImage(cameraImage).then((image) {
-//       if (image != null) {
-//         if (Platform.isAndroid) {
-//           image = image_lib.copyRotate(image, angle: 90);
-//         }
-
-//         final results = analyseImage(image, preConversionTime);
-//         _sendPort.send(_Command(_Codes.result, args: [results]));
-//       }
-//     });
+//   /// Loads labels from assets
+//   void loadLabels({List<String>? labels}) async {
+//     try {
+//       _labels = labels ?? await FileUtil.loadLabels(labelFileName);
+//     } catch (e) {
+//       print("Error while loading labels: $e");
+//     }
 //   }
 
-//   Map<String, dynamic> analyseImage(
-//       image_lib.Image? image, int preConversionTime) {
-//     var conversionElapsedTime =
-//         DateTime.now().millisecondsSinceEpoch - preConversionTime;
+//   /// Pre-process the image
+//   TensorImage getProcessedImage(TensorImage inputImage) {
+//     padSize = max(inputImage.height, inputImage.width);
+//     imageProcessor ??= ImageProcessorBuilder()
+//         .add(ResizeWithCropOrPadOp(padSize, padSize))
+//         .add(ResizeOp(inputSize, inputSize, ResizeMethod.bilinear))
+//         .build();
+//     inputImage = imageProcessor!.process(inputImage);
+//     return inputImage;
+//   }
+
+//   /// Runs object detection on the input image
+//   Map<String, dynamic>? predict(image_lib.Image image) {
+//     var predictStartTime = DateTime.now().millisecondsSinceEpoch;
+
+//     if (_interpreter == null) {
+//       print("Interpreter not initialized");
+//       return null;
+//     }
 
 //     var preProcessStart = DateTime.now().millisecondsSinceEpoch;
 
-//     /// Pre-process the image
-//     /// Resizing image for model [300, 300]
-//     final imageInput = image_lib.copyResize(
-//       image!,
-//       width: mlModelInputSize,
-//       height: mlModelInputSize,
-//     );
+//     // Create TensorImage from image
+//     TensorImage inputImage = TensorImage.fromImage(image);
 
-//     // Creating matrix representation, [300, 300, 3]
-//     final imageMatrix = List.generate(
-//       imageInput.height,
-//       (y) => List.generate(
-//         imageInput.width,
-//         (x) {
-//           final pixel = imageInput.getPixel(x, y);
-//           return [pixel.r, pixel.g, pixel.b];
-//         },
-//       ),
-//     );
+//     // Pre-process TensorImage
+//     inputImage = getProcessedImage(inputImage);
 
 //     var preProcessElapsedTime =
 //         DateTime.now().millisecondsSinceEpoch - preProcessStart;
 
+//     // TensorBuffers for output tensors
+//     TensorBuffer outputLocations = TensorBufferFloat(_outputShapes[0]);
+//     TensorBuffer outputClasses = TensorBufferFloat(_outputShapes[1]);
+//     TensorBuffer outputScores = TensorBufferFloat(_outputShapes[2]);
+//     TensorBuffer numLocations = TensorBufferFloat(_outputShapes[3]);
+
+//     // Inputs object for runForMultipleInputs
+//     // Use [TensorImage.buffer] or [TensorBuffer.buffer] to pass by reference
+//     List<Object> inputs = [inputImage.buffer];
+
+//     // Outputs map
+//     Map<int, Object> outputs = {
+//       0: outputLocations.buffer,
+//       1: outputClasses.buffer,
+//       2: outputScores.buffer,
+//       3: numLocations.buffer,
+//     };
+
 //     var inferenceTimeStart = DateTime.now().millisecondsSinceEpoch;
 
-//     final output = _runInference(imageMatrix);
+//     // run inference
+//     _interpreter.runForMultipleInputs(inputs, outputs);
 
-//     // Location
-//     final locationsRaw = output.first.first as List<List<double>>;
+//     var inferenceTimeElapsed =
+//         DateTime.now().millisecondsSinceEpoch - inferenceTimeStart;
 
-//     final List<Rect> locations = locationsRaw
-//         .map((list) => list.map((value) => (value * mlModelInputSize)).toList())
-//         .map((rect) => Rect.fromLTRB(rect[1], rect[0], rect[3], rect[2]))
-//         .toList();
+//     // Maximum number of results to show
+//     int resultsCount = min(numResult, numLocations.getIntValue(0));
 
-//     // Classes
-//     final classesRaw = output.elementAt(1).first as List<double>;
-//     final classes = classesRaw.map((value) => value.toInt()).toList();
+//     // Using labelOffset = 1 as ??? at index 0
+//     int labelOffset = 1;
 
-//     // Scores
-//     final scores = output.elementAt(2).first as List<double>;
+//     // Using bounding box utils for easy conversion of tensorbuffer to List<Rect>
+//     List<Rect> locations = BoundingBoxUtils.convert(
+//       tensor: outputLocations,
+//       valueIndex: [1, 0, 3, 2],
+//       boundingBoxAxis: 2,
+//       boundingBoxType: BoundingBoxType.boundaries,
+//       coordinateType: CoordinateType.ratio,
+//       height: inputSize,
+//       width: inputSize,
+//     );
 
-//     // Number of detections
-//     final numberOfDetectionsRaw = output.last.first as double;
-//     final numberOfDetections = numberOfDetectionsRaw.toInt();
-
-//     final List<String> classification = [];
-//     for (var i = 0; i < numberOfDetections; i++) {
-//       classification.add(_labels![classes[i]]);
-//     }
-
-//     /// Generate recognitions
 //     List<Recognition> recognitions = [];
-//     for (int i = 0; i < numberOfDetections; i++) {
-//       // Prediction score
-//       var score = scores[i];
-//       // Label string
-//       var label = classification[i];
 
-//       if (score > confidence) {
+//     for (int i = 0; i < resultsCount; i++) {
+//       // Prediction score
+//       var score = outputScores.getDoubleValue(i);
+
+//       // Label string
+//       var labelIndex = outputClasses.getIntValue(i) + labelOffset;
+//       var label = _labels.elementAt(labelIndex);
+
+//       if (score > threshold) {
+//         // inverse of rect
+//         // [locations] corresponds to the image size 300 X 300
+//         // inverseTransformRect transforms it our [inputImage]
+//         Rect transformedRect = imageProcessor!
+//             .inverseTransformRect(locations[i], image.height, image.width);
+
 //         recognitions.add(
-//           Recognition(i, label, score, locations[i]),
+//           Recognition(i, label, score, transformedRect),
 //         );
 //       }
 //     }
 
-//     var inferenceElapsedTime =
-//         DateTime.now().millisecondsSinceEpoch - inferenceTimeStart;
-
-//     var totalElapsedTime =
-//         DateTime.now().millisecondsSinceEpoch - preConversionTime;
+//     var predictElapsedTime =
+//         DateTime.now().millisecondsSinceEpoch - predictStartTime;
 
 //     return {
 //       "recognitions": recognitions,
-//       "stats": <String, String>{
-//         'Conversion time:': conversionElapsedTime.toString(),
-//         'Pre-processing time:': preProcessElapsedTime.toString(),
-//         'Inference time:': inferenceElapsedTime.toString(),
-//         'Total prediction time:': totalElapsedTime.toString(),
-//         'Frame': '${image.width} X ${image.height}',
-//       },
+//       "stats": Stats(
+//           totalPredictTime: predictElapsedTime,
+//           inferenceTime: inferenceTimeElapsed,
+//           preProcessingTime: preProcessElapsedTime)
 //     };
 //   }
 
-//   /// Object detection main function
-//   List<List<Object>> _runInference(
-//     List<List<List<num>>> imageMatrix,
-//   ) {
-//     // Set input tensor [1, 300, 300, 3]
-//     final input = [imageMatrix];
+//   /// Gets the interpreter instance
+//   Interpreter get interpreter => _interpreter;
 
-//     // Set output tensor
-//     // Locations: [1, 10, 4]
-//     // Classes: [1, 10],
-//     // Scores: [1, 10],
-//     // Number of detections: [1]
-//     final output = {
-//       0: [List<List<num>>.filled(10, List<num>.filled(4, 0))],
-//       1: [List<num>.filled(10, 0)],
-//       2: [List<num>.filled(10, 0)],
-//       3: [0.0],
-//     };
-
-//     _interpreter!.runForMultipleInputs([input], output);
-//     return output.values.toList();
-//   }
+//   /// Gets the loaded labels
+//   List<String> get labels => _labels;
 // }

@@ -18,6 +18,10 @@ class ListVideoController extends GetxController {
       fetchVideoAngka();
     } else if (category == "kata") {
       fetchVideoKata();
+    } else if (category == "perkenalan") {
+      fetchVideoPerkenalan();
+    } else if (category == "salam") {
+      fetchVideoSalam();
     }
     super.onInit();
   }
@@ -100,6 +104,42 @@ class ListVideoController extends GetxController {
       // print(ready);
       data.addAll(ready);
 
+      print(data);
+    } else {
+      throw Exception('Failed to load news');
+    }
+
+    // news.assignAll(data.map((item) => DetailNews.fromJson(item)).toList());
+  }
+
+  Future fetchVideoPerkenalan() async {
+    Uri url = Uri.parse("https://api.isibi.web.id/intro/perkenalan");
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final ready = json.decode(response.body)['data'];
+
+      // print(ready);
+      data.addAll(ready);
+      print(data);
+    } else {
+      throw Exception('Failed to load news');
+    }
+
+    // news.assignAll(data.map((item) => DetailNews.fromJson(item)).toList());
+  }
+
+  Future fetchVideoSalam() async {
+    Uri url = Uri.parse("https://api.isibi.web.id/intro/salam");
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final ready = json.decode(response.body)['data'];
+
+      // print(ready);
+      data.addAll(ready);
       print(data);
     } else {
       throw Exception('Failed to load news');

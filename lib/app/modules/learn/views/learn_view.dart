@@ -29,19 +29,6 @@ class LearnView extends GetView<LearnController> {
                   fit: BoxFit.cover,
                 ),
               ),
-              Positioned(
-                  top: 16,
-                  left: 13,
-                  child: GestureDetector(
-                    onTap: () => Get.back(),
-                    child: Container(
-                      child: Icon(Icons.arrow_back_rounded),
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
-                    ),
-                  )),
               Column(
                 children: [
                   Padding(
@@ -99,7 +86,7 @@ class LearnView extends GetView<LearnController> {
                     padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: InkWell(
                       onTap: () {
-                        Get.toNamed(Routes.LIST_VIDEO, arguments: "kata");
+                        Get.toNamed(Routes.LIST_VIDEO, arguments: "salam");
                       },
                       child: Container(
                         // decoration: BoxDecoration(border: Border.symmetric()),
@@ -150,7 +137,7 @@ class LearnView extends GetView<LearnController> {
                     padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: InkWell(
                       onTap: () {
-                        Get.toNamed(Routes.LIST_VIDEO, arguments: "kata");
+                        Get.toNamed(Routes.LIST_VIDEO, arguments: "perkenalan");
                       },
                       child: Container(
                         // decoration: BoxDecoration(border: Border.symmetric()),

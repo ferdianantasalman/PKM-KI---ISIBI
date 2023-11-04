@@ -79,7 +79,8 @@ class HomeView extends GetView<HomeController> {
                           height: 65,
                           child: ElevatedButton(
                             onPressed: () {
-                              Get.toNamed(Routes.LIST_VIDEO, arguments: "kata");
+                              Get.toNamed(Routes.LIST_VIDEO,
+                                  arguments: "salam");
                             },
                             child: Image.asset("assets/icons/salam.png"),
                             style: ElevatedButton.styleFrom(
@@ -153,7 +154,8 @@ class HomeView extends GetView<HomeController> {
                           height: 65,
                           child: ElevatedButton(
                             onPressed: () {
-                              Get.toNamed(Routes.VIDEO, arguments: "kata");
+                              Get.toNamed(Routes.LIST_VIDEO,
+                                  arguments: "perkenalan");
                             },
                             child: Image.asset("assets/icons/salam.png"),
                             style: ElevatedButton.styleFrom(

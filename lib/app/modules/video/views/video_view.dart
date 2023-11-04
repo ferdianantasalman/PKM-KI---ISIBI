@@ -32,33 +32,45 @@ class VideoView extends GetView<VideoController> {
         centerTitle: true,
         backgroundColor: Colors.white,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: GetBuilder<VideoController>(
-            init: VideoController(),
-            builder: (controller) {
-              return AspectRatio(
-                aspectRatio: 16 / 9,
-                child: controller.chewieController != null &&
-                        controller.chewieController!.videoPlayerController.value
-                            .isInitialized
-                    ? Chewie(controller: controller.chewieController!)
-                    : Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const CircularProgressIndicator(),
-                          const SizedBox(
-                            height: 10,
+      body: Column(
+        children: [
+          SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: GetBuilder<VideoController>(
+                init: VideoController(),
+                builder: (controller) {
+                  return AspectRatio(
+                    aspectRatio: 16 / 9,
+                    child: controller.chewieController != null &&
+                            controller.chewieController!.videoPlayerController
+                                .value.isInitialized
+                        ? Chewie(controller: controller.chewieController!)
+                        : Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const CircularProgressIndicator(),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                "Loading",
+                                style: regular.copyWith(
+                                    color: Colors.black, fontSize: 15),
+                              )
+                            ],
                           ),
-                          Text(
-                            "Loading",
-                            style: regular.copyWith(
-                                color: Colors.black, fontSize: 15),
-                          )
-                        ],
-                      ),
-              );
-            }),
+                  );
+                }),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 3),
+            child: Text(
+              videoC.category["kamus_title"],
+              style: semibold.copyWith(color: Colors.black, fontSize: 20),
+            ),
+          ),
+        ],
       ),
       // Obx(() => ListView.builder(
       //       itemCount: videoC.data.length,

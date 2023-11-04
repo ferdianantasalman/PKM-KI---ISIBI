@@ -1,4 +1,4 @@
-import 'package:easy_search_bar/easy_search_bar.dart';
+// import 'package:easy_search_bar/easy_search_bar.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+// import 'package:isibi/app/widgets/home_view.dart';
 
 import '../modules/detail/bindings/detail_binding.dart';
 import '../modules/detail/views/detail_view.dart';
@@ -18,7 +19,8 @@ import '../modules/translator/bindings/translator_binding.dart';
 import '../modules/translator/views/translator_view.dart';
 import '../modules/video/bindings/video_binding.dart';
 import '../modules/video/views/video_view.dart';
-import '../utils/translator.dart';
+import '../widgets/detector_view.dart';
+import '../widgets/detector_widget.dart';
 
 part 'app_routes.dart';
 
@@ -45,7 +47,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.TRANSLATOR,
-      page: () => Translator(),
+      page: () => DetectorView(),
       binding: TranslatorBinding(),
     ),
     GetPage(
