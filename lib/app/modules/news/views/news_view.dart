@@ -49,20 +49,7 @@ class NewsView extends GetView<NewsController> {
               return ListTile(
                 contentPadding: EdgeInsets.fromLTRB(5, 5, 5, 0),
                 focusColor: Colors.amber,
-                leading:
-                    // Container(
-                    //   decoration: BoxDecoration(
-                    //       // shape: BoxShape.circle,
-                    //       borderRadius: BorderRadius.all(Radius.circular(10)),
-                    //       border: Border.all(
-                    //           width: 1,
-                    //           color: Colors.black,
-                    //           style: BorderStyle.solid)),
-                    //   margin: EdgeInsets.fromLTRB(2, 5, 2, 0),
-                    //   height: 100,
-                    //   width: 100,
-                    //   child:
-                    ClipRRect(
+                leading: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: SizedBox.fromSize(
                     size: Size.fromRadius(50),

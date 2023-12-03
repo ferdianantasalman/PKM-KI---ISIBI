@@ -72,19 +72,5 @@ class _ChewieListItemState extends State<ChewieListItem> {
             child: Chewie(controller: _chewieController!))
       ],
     );
-    // SingleChildScrollView(
-    //   child: Column(
-    //     children: [
-    //       Chewie(controller: _chewieController!),
-    // Text(
-    //   widget.kamus_title,
-    //   style: bold.copyWith(fontSize: 20),
-    // ),
-    //       SizedBox(
-    //         height: 10,
-    //       ),
-    //     ],
-    //   ),
-    // );
   }
 }

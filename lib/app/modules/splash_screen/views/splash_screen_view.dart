@@ -12,15 +12,6 @@ class SplashScreenView extends GetView<SplashScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    // Future.delayed(Duration(milliseconds: 3000), () {
-    //   final getStorage = GetStorage();
-
-    //   getStorage.read("status")
-    //       ? Get.offAllNamed(Routes.HOME)
-    //       : Get.offAllNamed(Routes.INTRODUCTION);
-    //   print(getStorage.read("status"));
-    // });
-
     Future.delayed(const Duration(seconds: 3), (() {
       Get.offAllNamed(Routes.INTRODUCTION);
     }));

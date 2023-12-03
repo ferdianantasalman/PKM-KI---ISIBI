@@ -47,7 +47,8 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.TRANSLATOR,
-      page: () => DetectorView(),
+      // page: () => DetectorView(),
+      page: () => TranslatorView(),
       binding: TranslatorBinding(),
     ),
     GetPage(

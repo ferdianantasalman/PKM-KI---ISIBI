@@ -32,12 +32,12 @@ class HomeView extends GetView<HomeController> {
                     )),
                 Text('Yuk Bersama Ciptakan #AksesTanpaBatas',
                     style: regular.copyWith(color: blueisibi, fontSize: 15)),
-                // SizedBox(height: 3),
+                SizedBox(height: 10),
                 Container(
                   width: 330,
                   height: 150,
                   child: Image.asset(
-                    "assets/images/banner_isibi.png",
+                    "assets/images/bannerisibi.jpg",
                     fit: BoxFit.cover,
                   ),
                   // child: card(),

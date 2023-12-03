@@ -31,10 +31,6 @@ class DetailView extends GetView<DetailController> {
                     detailC.newsData['post_thumbnail'],
                     fit: BoxFit.fill,
                   ),
-                  // decoration: BoxDecoration(
-                  //     image: DecorationImage(
-                  //         image: AssetImage(detailC.newsData['post_thumbnail']),
-                  //         fit: BoxFit.cover)),
                 ),
                 Positioned(
                     top: 16,

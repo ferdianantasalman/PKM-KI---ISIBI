@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-// import 'package:isibi/app/data/models/detail_news.dart';
-// import 'package:isibi/app/data/service/news_service.dart';
 import 'package:http/http.dart' as http;
 
 class NewsController extends GetxController {

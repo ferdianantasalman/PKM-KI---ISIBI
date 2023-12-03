@@ -2,15 +2,19 @@ import 'package:get/get.dart';
 // import 'package:flutter_tflite/flutter_tflite.dart';
 // import 'package:tflite_v2/tflite_v2.dart';
 // import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:camera/camera.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class TranslatorController extends GetxController {
-  // late CameraController cameraController;
+  final getStorage = GetStorage();
 
-  // late List<CameraDescription> cameras;
+  late CameraController cameraController;
 
-  // late CameraImage cameraImage;
+  late List<CameraDescription> cameras;
+
+  late CameraImage cameraImage;
 
   // var isCameraInitialized = false.obs;
   // var cameraCount = 0;
@@ -19,8 +23,8 @@ class TranslatorController extends GetxController {
 
   // var label = "";
 
-  // // final webViewController = WebViewController()
-  // //   ..loadRequest(Uri.parse("https://handsign-tensorflow.vercel.app/"));
+  // final webViewController = WebViewController()
+  //   ..loadRequest(Uri.parse("https://cam.isibi.web.id/"));
 
   // final count = 0.obs;
 
@@ -111,22 +115,22 @@ class TranslatorController extends GetxController {
   //   // useGpuDelegate: false
   // }
 
-  // @override
-  // void onInit() {
-  //   // testModel();
+  @override
+  void onInit() {
+    // testModel();
 
-  //   // initTfLite();
-  //   // initCamera();
-  //   super.onInit();
-  // }
+    // initTfLite();
+    // initCamera();
+    super.onInit();
+  }
 
-  // @override
-  // void onReady() {
-  //   super.onReady();
-  // }
+  @override
+  void onReady() {
+    super.onReady();
+  }
 
-  // @override
-  // void onClose() {
-  //   super.onClose();
-  // }
+  @override
+  void onClose() {
+    super.onClose();
+  }
 }
